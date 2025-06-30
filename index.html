@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Incorta Schema Comparison Tool</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="styles.css">
+
+    <!-- Export to Excel support -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">
+                <i class="fas fa-project-diagram"></i>
+                <h1>Schema Comparison Tool</h1>
+            </div>
+            <p class="subtitle">Compare Incorta schemas with precision and ease</p>
+        </div>
+
+        <div class="upload-section">
+            <div class="upload-zone" id="upload1">
+                <div class="upload-content">
+                    <div class="upload-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+                    <div class="upload-text">Drop Schema 1 (ZIP file)</div>
+                    <div class="upload-subtext">or click to browse</div>
+                    <div class="file-info" id="fileInfo1">
+                        <div class="file-name"><i class="fas fa-check-circle"></i> <span id="fileName1"></span></div>
+                        <div class="file-size" id="fileSize1"></div>
+                    </div>
+                </div>
+                <input type="file" id="file1" accept=".zip" style="display: none;">
+            </div>
+            <div class="vs-circle"><span>VS</span></div>
+
+            <div class="upload-zone" id="upload2">
+                <div class="upload-content">
+                    <div class="upload-icon"><i class="fas fa-cloud-upload-alt"></i></div>
+                    <div class="upload-text">Drop Schema 2 (ZIP file)</div>
+                    <div class="upload-subtext">or click to browse</div>
+                    <div class="file-info" id="fileInfo2">
+                        <div class="file-name"><i class="fas fa-check-circle"></i> <span id="fileName2"></span></div>
+                        <div class="file-size" id="fileSize2"></div>
+                    </div>
+                </div>
+                <input type="file" id="file2" accept=".zip" style="display: none;">
+            </div>
+        </div>
+
+        <!-- Compare, Download, and Reset buttons -->
+        <div style="text-align: center; margin-bottom: 2rem;">
+            <button class="compare-button" id="compareBtn" disabled>
+                <span class="btn-text">Compare Schemas</span>
+                <span class="btn-icon"><i class="fas fa-arrow-right"></i></span>
+            </button>
+            
+            <button class="reset-button" id="resetBtn">
+                <i class="fas fa-undo"></i> Reset
+            </button>
+        </div>
+
+        <!-- Loading animation -->
+        <div class="loading" id="loading">
+            <div class="loading-content">
+                <div class="spinner"></div>
+                <div class="loading-text">Analyzing schemas...</div>
+                <div class="loading-dots">
+                    <span></span><span></span><span></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Results -->
+        <div class="results-section" id="results">
+            <div class="results-header">
+                <h2 class="results-title">
+                    <i class="fas fa-chart-bar"></i>
+                    Comparison Results
+                </h2>
+                <div class="results-summary" id="summary"></div>
+            </div>
+
+            <!-- View toggle -->
+            <div class="view-toggle">
+                <button class="toggle-btn active" data-view="differences">Differences</button>
+                <button class="toggle-btn" data-view="similarities">Similarities</button>
+            </div>
+
+
+            <!-- Tab navigation -->
+            <div class="schema-tabs">
+                <button class="tab active" data-tab="tables">
+                    <i class="fas fa-table"></i> Tables
+                </button>
+                <button class="tab" data-tab="columns">
+                    <i class="fas fa-columns"></i> Columns
+                </button>
+                <button class="tab" data-tab="joins">
+                    <i class="fas fa-link"></i> Joins
+                </button>
+                <div class="tab-indicator"></div>
+            </div>
+
+            <!-- Tab content -->
+            <div class="tab-content-container">
+                <div id="tables" class="tab-content active"></div>
+                <div id="columns" class="tab-content"></div>
+                <div id="joins" class="tab-content"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Core libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
